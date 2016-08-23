@@ -1,0 +1,23 @@
+<h1>API接続ツール</h1>
+<form action="/result_api" method = "POST">
+  <p>
+    <input type="text" name="reqUrl">
+  </p>
+  <p>
+    <select name="reqType" id="reqType">
+      <option value="GET">GET</option>
+      <option value="POST">POST</option>
+    </select>
+  </p>
+  <p>
+    <input type="text" name="reqHead">
+  </p>
+  <p>
+    <input type="text" name="reqBody">
+  </p>
+  <p>
+    <input type="submit" value="送信">
+  </p>
+</form>
+
+  <p><%= @res_body %></p>

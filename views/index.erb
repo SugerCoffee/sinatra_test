@@ -1,0 +1,13 @@
+<h1>BBS</h1>
+<ul>
+  <% @allcomments.each do |comment| %>
+  <li data-id="<%= comment.id %>">
+    <%= comment.body %>
+  </li>
+  <% end %>
+</ul>
+<h2>Add New</h2>
+<form method="post" action="/new">
+  <input type="text" name="body">
+  <input type="submit" value="post!">
+</form>
