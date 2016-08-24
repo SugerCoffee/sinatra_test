@@ -1,22 +1,21 @@
 <h1>API接続ツール</h1>
-<form action="/result_api" method = "POST">
+<form id="reqForm" action="/result_api" method = "POST">
   <p>
-    登録名:<input type="text" name="name">
+    登録名:<input type="text" name="name" id="name">
   </p>
   <p>
-    対象URL:<input type="text" name="reqUrl">
+    対象URL:<input type="text" name="reqUrl" id="reqUrl">
   </p>
   <p>
     <select name="reqType" id="reqType">
       <option value="GET">GET</option>
-      <option value="POST">POST</option>
     </select>
   </p>
   <p>
-    ヘッダー:<input type="text" name="reqHead">
+    ヘッダー:<input type="text" name="reqHead" id="reqHead">
   </p>
   <p>
-    ボディ:<input type="text" name="reqBody">
+    ボディ:<input type="text" name="reqBody" id="reqBody">
   </p>
   <p>
     <button type="submit" name='action' value="send">送信</button>
@@ -26,9 +25,9 @@
 
 <ul>
   <% @allRequests.each do |request| %>
-  <li data-id="<%= request.id %>">
-    <%= request.name %>
-    <span class="deleteCmd" style="cursor:pointer;color:blue">[x]</span>
+  <li data-id="<%= request.id %>" data-name="<%= request.name %>" data-requrl="<%= request.reqUrl %>" data-reqtype="<%= request.reqType %>" data-reqhead="<%= request.reqHead %>" data-reqbody="<%= request.reqBody %>" >
+    <span class="setReq" style="cursor:pointer;color:blue"><%= request.name %></span>
+    <span class="deleteCmd" style="cursor:pointer;color:orange">[x]</span>
   </li>
   <% end %>
 </ul>
@@ -45,4 +44,31 @@
             });
         }
     })
+</script>
+
+<script>
+// 保存したデータをクリックした時
+  $('.setReq').click(function(){
+    // 名前フォームのセット
+    var el = $(this).parent();
+    var $inputName = $('#name').val(
+      el.data('name')
+    );
+    // URLのセット
+    var $inputUrl = $('#reqUrl').val(
+      el.data('requrl')
+    );
+    // Typeのセット
+    var $inputType = $('#reqType').val(
+      el.data('reqtype')
+    );
+    // Headのセット
+    var $inputHead = $('#reqHead').val(
+      el.data('reqhead')
+    );
+    // Bodyのセット
+    var $inputBody = $('#reqBody').val(
+      el.data('reqbody')
+    );
+  });
 </script>

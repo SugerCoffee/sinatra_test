@@ -34,13 +34,13 @@ get '/connect_api' do
 end
 
 post '/result_api' do
-  if params[:action] == "save" then
+  if params[:action] == "send" then
+    @title = "API接続結果"
+    @res_body = Api_connect_logic.new.get_api(params[:reqUrl])
+    erb :api_result, :layout => false
+  else
     Request.create({:name => params[:name], :reqUrl => params[:reqUrl], :reqHead => params[:reqHead], :reqBody => params[:reqBody]})
     redirect '/connect_api'
-  else
-  @title = "API接続結果"
-  @res_body = Api_connect_logic.new.get_api(params[:reqUrl])
-  erb :api_result, :layout => false
   end
 end
 
