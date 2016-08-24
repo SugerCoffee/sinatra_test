@@ -1,7 +1,10 @@
 <h1>API接続ツール</h1>
 <form action="/result_api" method = "POST">
   <p>
-    <input type="text" name="reqUrl">
+    登録名:<input type="text" name="name">
+  </p>
+  <p>
+    対象URL:<input type="text" name="reqUrl">
   </p>
   <p>
     <select name="reqType" id="reqType">
@@ -10,14 +13,36 @@
     </select>
   </p>
   <p>
-    <input type="text" name="reqHead">
+    ヘッダー:<input type="text" name="reqHead">
   </p>
   <p>
-    <input type="text" name="reqBody">
+    ボディ:<input type="text" name="reqBody">
   </p>
   <p>
-    <input type="submit" value="送信">
+    <button type="submit" name='action' value="send">送信</button>
+    <button type="submit" name='action' value="save">保存</button>
   </p>
 </form>
 
-  <p><%= @res_body %></p>
+<ul>
+  <% @allRequests.each do |request| %>
+  <li data-id="<%= request.id %>">
+    <%= request.name %>
+    <span class="deleteCmd" style="cursor:pointer;color:blue">[x]</span>
+  </li>
+  <% end %>
+</ul>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script>
+    $('.deleteCmd').click(function() {
+        var el = $(this).parent();
+        if (confirm('are you sure to delete?')) {
+            $.post('/delete_request', {
+                id: el.data('id')
+            }, function() {
+                el.fadeOut(800);
+            });
+        }
+    })
+</script>
